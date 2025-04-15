@@ -1,4 +1,22 @@
+const otherSamples = {
 
+}
+
+
+const sampleLibrary  = {
+    kick: {
+        path: "GSCW Drums Kit 1 Samples/Kick-V01-Yamaha-16x16.wav",
+        buffer: null,//placeholder for decoded audio data
+    },    
+    snare: {
+        path: "GSCW Drums Kit 1 Samples/SNARE-V01-CustomWorks-6x13.wav",
+        buffer: null,//placeholder for decoded audio data
+    },    
+    hihatClosed: {
+        path: "GSCW Drums Kit 1 Samples/HHats-CL-V01-SABIAN-AAX.wav",
+        buffer: null,//placeholder for decoded audio data
+    },    
+}
 
 // Create the Audio Context — this is the main control center for all audio operations
 const soundCtx = new AudioContext();
@@ -51,6 +69,19 @@ const loadBuffer = async function(path) {
 
 }
 
+for (let inst in otherSamples) {
+    otherSamples[inst].ForEach((singleSamp) ==> {
+        console.log(singleSamp);
+    })
+}
+
+
+
+for (let inst in SampleLibrary ) {
+let p = sampleLibrary[inst].path;
+let audio = await loadBuffer(p);
+sampleLibrary[inst].buffer = audio;
+};
 
 
 
@@ -58,11 +89,13 @@ const loadBuffer = async function(path) {
 // Add a click event listener to the "start" button
 // When clicked, it runs loadPlayAudio() to fetch, decode, and play the sound
 document.getElementById("kick").addEventListener("mousedown", ()=>{
+    play("kick");
 });
 
 // Add a click event listener to the "stop" button
 // When clicked, it runs stopAudio() to stop the sound
 document.getElementById("snare").addEventListener("mousedown", ()=> {
+    play("snare");
 });
 
 
@@ -75,6 +108,7 @@ if (!e.repeat){
     let key = e.key.toLowerCase()
     switch(key){
         case "a":
+            play("kick");
             break;
         case 'w':
             break;
